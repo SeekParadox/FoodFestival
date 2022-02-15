@@ -10,7 +10,7 @@ public class FoodFestival {
     public static ArrayList<String> ShortStorageDessert = new ArrayList<>();
     public static ArrayList<String> DessertAppToppings = new ArrayList<>();
     public static ArrayList<String> DessertShortStorageToppings = new ArrayList<>();
-    public static double Cost;
+    private static double cost;
 
     public static String placeOrder() {
         Scanner input = new Scanner(System.in);
@@ -47,29 +47,30 @@ public class FoodFestival {
             switch (userInput) {
                 case 1 -> {
                     appetizerList.add("Buffalo Wings");
-                    count++;
+                    cost += 10.95;
                 }
                 case 2 -> {
                     appetizerList.add("Boneless Wings");
-                    count++;
+                    cost += 10.95;
                 }
                 case 3 -> {
                     appetizerList.add("Coconut Shrimp");
-                    count++;
+                    cost += 12.95;
                 }
                 default -> {
                     if (userInput != 0)
                         System.out.println("Oops try again. I didn't quite get that.");
-                    count++;
+
                 }
             }
+            count++;
         }while (userInput != 0 && count < 25);
 
         if (userInput == 0)
-            System.out.printf("You selected %d items from the Appetizer Menu\n", count);
+            System.out.printf("You selected %d items from the Appetizer Menu\n", appetizerList.size());
         if(userInput != 0)
             System.out.printf("Maximum entries allowed has been reached. " +
-                    "\nYou selected %d items from the Appetizer Menu", count);
+                    "\nYou selected %d items from the Appetizer Menu", appetizerList.size());
         if(count > 0) appToppings();
 
         return appetizerList;
@@ -132,18 +133,18 @@ public class FoodFestival {
               count++;
               MainMeal.add("Traditional Cheese Burgers");
               meal.add("Traditional Cheese Burgers");
-              Cost += 12.95;
+              cost += 12.95;
 
           } else if (userInput == 2) {
               MainMeal.add("Stake and vegetables");
               meal.add("Stake and vegetables");
               count++;
-              Cost += 15.95;
+              cost += 15.95;
           } else if (userInput == 3) {
               MainMeal.add("Chicken Burger");
               meal.add("Chicken Burger");
               count++;
-              Cost += 12.95;
+              cost += 12.95;
           }
       } while (userInput != 0);
 
@@ -202,17 +203,17 @@ public class FoodFestival {
                 i++;
                 DessertList.add("Lava Cake");
                 dessert.add("Lava Cake");
-                Cost += 8.95;
+                cost += 8.95;
             } else if (userInput == 2) {
                 DessertList.add("Moose Cake");
                 dessert.add("Moose Cake");
                 i++;
-                Cost += 3.95;
+                cost += 3.95;
             } else if (userInput == 3) {
                 DessertList.add("Fried Ice Cream");
                 dessert.add("Fried Ice Cream");
                 i++;
-                Cost += 5.95;
+                cost += 5.95;
             }
         } while (userInput != 0);
         if (userInput == 0) {
@@ -300,14 +301,14 @@ public class FoodFestival {
                 }if(AppToppings.size() > appetizerList.size()){
                     System.out.println("Additional $0.95 per extra Appetizer Topping");
                     for (int i = appetizerList.size(); i < AppToppings.size(); i++) {
-                        Cost += 0.95;
+                        cost += 0.95;
                     }
                 }
             }else if ((AppToppings.size() > 0) && (appetizerList.size() == 0)) {
                 System.out.println("No Appetizer only take out toppings");
                 for (int i = 0; i < AppToppings.size(); i++) {
                     System.out.println(AppToppings.toArray()[i]);
-                    Cost += 0.95;
+                    cost += 0.95;
                 }
             }if (MainMeal.size()> 0){
             System.out.println("Main Course:");
@@ -317,7 +318,7 @@ public class FoodFestival {
                     if (MealAppToppings.size() > MainMeal.size()) {
                         System.out.println("Additional $0.95 per extra Main Course toppings");
                         for (int i = MainMeal.size(); i < MealAppToppings.size(); i++) {
-                            Cost += 0.95;
+                            cost += 0.95;
                         }
                     }
                 }
@@ -325,7 +326,7 @@ public class FoodFestival {
             System.out.println("No Meal only take out toppings.");
             for (int i = 0; i< MealAppToppings.size(); i++) {
                 System.out.println(MealAppToppings.toArray()[i]);
-                Cost += 0.95;
+                cost += 0.95;
             }
             }if(DessertList.size() > 0) {
             System.out.println("Dessert:");
@@ -336,17 +337,17 @@ public class FoodFestival {
             if (DessertAppToppings.size() > DessertList.size()) {
                 System.out.println("Additional $0.95 per extra Main Course toppings");
                 for (int i = DessertList.size(); i < DessertAppToppings.size(); i++) {
-                    Cost += 0.95;
+                    cost += 0.95;
                 }
             }
         } else if ((DessertList.size() == 0) && DessertAppToppings.size() > 0){
             System.out.println("No Dessert only take out toppings.");
                 for (int i = 0; i< DessertAppToppings.size(); i++) {
                     System.out.println(DessertAppToppings.toArray()[i]);
-                    Cost += 0.95;
+                    cost += 0.95;
                 }
             }
-            System.out.printf("Total: $%.02f", Cost);
+            System.out.printf("Total: $%.02f", cost);
         }
     }
 
