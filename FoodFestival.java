@@ -14,29 +14,27 @@ public class FoodFestival {
     public static ArrayList<String> DessertShortStorageToppings = new ArrayList<>();
     public static double Cost;
 
-    public static String Placeorder() {
+    public static String PlaceOrder() {
         Scanner input = new Scanner(System.in);
-        String placeOrder;
-        boolean correct;
         String userInput = "";
         System.out.println("Welcome to the food festival!");
+        String placeOrder;
         do {
             System.out.println("Would you like to place an order?");
             placeOrder = input.next().toLowerCase();
-            correct = placeOrder.equals("yes") || placeOrder.contains("no");
-        } while (!correct);
-        if (placeOrder.contains(("yes"))) {
-            System.out.println("What is your name for the order?");
-            userInput = input.next();
-        } else if (placeOrder.equals("no")) {
-            System.out.println("Thank you for stopping by, maybe next time you’ll sample our menu.");
-            System.exit(0);
-        }
+        } while (!placeOrder.equals("yes") && !placeOrder.contains("no"));
+
+    if (placeOrder.equals("no")) {
+        System.out.println("Thank you for stopping by, maybe next time you’ll sample our menu.");
+        System.exit(0);
+    }
+        System.out.println("What is your name for the order?");
+        userInput = input.next();
         return userInput;
     }
 
-    public static void Appetizer() {
-        Scanner input = new Scanner(System.in);
+    public static void Appetizer(Scanner input ) {
+       input = new Scanner(System.in);
         int userInput;
         int count = 0;
         ArrayList<String>appetizer = new ArrayList<>();
@@ -252,7 +250,7 @@ public class FoodFestival {
                             break;
 
                         case 1:
-                            Appetizer();
+                            Appetizer(input);
                             break;
                         case 2:
                             MainCourse();
@@ -265,7 +263,7 @@ public class FoodFestival {
             } while (userInput != 0);
         }
     }public static void main (String[] args){
-        String name = Placeorder();
+        String name = PlaceOrder();
             System.out.printf("Select from menu, %s:", name);
            Mainmenu();
             System.out.println(" ****Mike's Burgers****    ");
