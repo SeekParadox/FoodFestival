@@ -31,10 +31,10 @@ public class FoodFestival {
         return userInput;
     }
 
-    public static ArrayList<String> appetizer(Scanner input ) {
+    public static List<String> appetizer(Scanner input ) {
         int userInput;
         int count = 0;
-        ArrayList<String> appetizerList = new ArrayList<>();
+        List<String> appetizerList = new ArrayList<>();
 
         System.out.println("Appetizer Menu:" +
                 "\nSelect Nothing - 0 " +
@@ -42,6 +42,7 @@ public class FoodFestival {
                 "\nSelect Boneless Wings - 2 " +
                 "\nSelect Coconut Shrimp - 3 " +
                 "\nEnter the number for your appetizer selection");
+
         do {
             userInput = input.nextInt();
             switch (userInput) {
@@ -58,9 +59,7 @@ public class FoodFestival {
                     cost += 12.95;
                 }
                 default -> {
-                    if (userInput != 0)
-                        System.out.println("Oops try again. I didn't quite get that.");
-
+                    if (userInput != 0) System.out.println("Oops try again. I didn't quite get that.");
                 }
             }
             count++;
