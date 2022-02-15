@@ -1,7 +1,5 @@
 import java.util.*;
 public class FoodFestival {
-    public static ArrayList<String> AppetizerList = new ArrayList<>();
-    public static ArrayList<String> ShortStorageApp = new ArrayList<>();
     public static ArrayList<String> AppToppings = new ArrayList<>();
     public static ArrayList<String> ShortStorageToppings = new ArrayList<>();
     public static ArrayList<String> MainMeal = new ArrayList<>();
@@ -14,7 +12,7 @@ public class FoodFestival {
     public static ArrayList<String> DessertShortStorageToppings = new ArrayList<>();
     public static double Cost;
 
-    public static String PlaceOrder() {
+    public static String placeOrder() {
         Scanner input = new Scanner(System.in);
         String userInput = "";
         System.out.println("Welcome to the food festival!");
@@ -33,66 +31,85 @@ public class FoodFestival {
         return userInput;
     }
 
-    public static void Appetizer(Scanner input ) {
-       input = new Scanner(System.in);
+    public static ArrayList<String> appetizer(Scanner input ) {
         int userInput;
         int count = 0;
-        ArrayList<String>appetizer = new ArrayList<>();
-        ShortStorageApp = appetizer;
+        ArrayList<String> appetizerList = new ArrayList<>();
 
-        System.out.println("Appetizer Menu:\nSelect Nothing - 0 \nSelect Buffalo Wings - 1 \nSelect Boneless Wings - 2 " +
-                "\nSelect Chini- Shrimp - 3 " +
+        System.out.println("Appetizer Menu:" +
+                "\nSelect Nothing - 0 " +
+                "\nSelect Buffalo Wings - 1 " +
+                "\nSelect Boneless Wings - 2 " +
+                "\nSelect Coconut Shrimp - 3 " +
                 "\nEnter the number for your appetizer selection");
         do {
             userInput = input.nextInt();
-            if (userInput == 1) {
-                count++;
-                AppetizerList.add("Buffalo Wings");
-                appetizer.add("Buffalo Wings");
-                Cost += 10.95;
-
-            } else if (userInput == 2) {
-                AppetizerList.add("Boneless Wings");
-               appetizer.add("Boneless Wings");
-                count++;
-                Cost += 10.95;
-            } else if (userInput == 3) {
-                AppetizerList.add("Chini- Shrimp");
-                appetizer.add("Chini- Shrimp");
-                count++;
-                Cost += 12.95;
+            switch (userInput) {
+                case 1 -> {
+                    appetizerList.add("Buffalo Wings");
+                    count++;
+                }
+                case 2 -> {
+                    appetizerList.add("Boneless Wings");
+                    count++;
+                }
+                case 3 -> {
+                    appetizerList.add("Coconut Shrimp");
+                    count++;
+                }
+                default -> {
+                    if (userInput != 0)
+                        System.out.println("Oops try again. I didn't quite get that.");
+                    count++;
+                }
             }
-        } while (userInput != 0);
-        if (userInput == 0) {
+        }while (userInput != 0 && count < 25);
+
+        if (userInput == 0)
             System.out.printf("You selected %d items from the Appetizer Menu\n", count);
-            System.out.println(""+ShortStorageApp.toString() + "");
-            Toppings();
-        }
-    }public static void Toppings() {
+        if(userInput != 0)
+            System.out.printf("Maximum entries allowed has been reached. " +
+                    "\nYou selected %d items from the Appetizer Menu", count);
+        if(count > 0) appToppings();
+
+        return appetizerList;
+
+
+    }
+
+    public static void appToppings() {
         Scanner input = new Scanner(System.in);
         int i = 0;
         int userInput;
-        ArrayList<String> Toppings = new ArrayList<>();
-        ShortStorageToppings = Toppings;
-        System.out.println("Toppings Menu: \nSelect Nothing - 0 \nSelect Bleu Cheese- 1  \nSelect Parmesan sauce - 2 " +
-                "\nSelect Spicy Remoulade - 3 \nEnter the number for your topping selection: ");
+        ArrayList<String> toppingList = new ArrayList<>();
+
+        System.out.println("Toppings Menu: \n" +
+                "Select Nothing - 0\n" +
+                "Select Bleu Cheese- 1\n" +
+                "Select Parmesan sauce - 2\n" +
+                "Select Spicy Remoulade - 3\n" +
+                "Enter the number for your topping selection: ");
         do{
             userInput = input.nextInt();
-            if (userInput == 0) {
+            switch (userInput) {
+                case 1 -> {
+
+                }
+            }
+            /*if (userInput == 0) {
                 break;
             } else if (userInput == 1) {
                 i++;
-                AppToppings.add("Bleu Cheese");
-                Toppings.add("Bleu Cheese");
+
+                toppingList.add("Bleu Cheese");
             } else if (userInput == 2) {
-                AppToppings.add("Parmesan sauce");
-                Toppings.add("Parmesan sauce");
+
+                toppingList.add("Parmesan sauce");
                 i++;
             } else if (userInput == 3) {
-                AppToppings.add("Spicy Remoulade");
-                Toppings.add("Spicy Remoulade");
+                toppingList.add("Spicy Remoulade");
                 i++;
-            }
+            }*/
         }
         while(userInput != 0);
         for (int j = 0; j < i; j++) {
@@ -203,7 +220,9 @@ public class FoodFestival {
             System.out.println("" + dessert.toString() + "");
             DessertToppings();
         }
-    }public static void DessertToppings() {
+    }
+
+    public static void DessertToppings() {
         Scanner input = new Scanner(System.in);
         int i = 0;
         int userInput;
@@ -236,51 +255,55 @@ public class FoodFestival {
 
         }
     }
-    public static void Mainmenu() {
+
+
+    public static void main (String[] args){
+        String name = placeOrder();
         Scanner input = new Scanner(System.in);
-        int userInput;
-        {
+            int menuSelection;
+            List<String> appetizerList = new ArrayList<>(), mainCourseList, dessertList, tempList = new ArrayList<>();
+
             do {
-                System.out.println("Menu\n" + "0 - Nothing\n" + "1 - Appetizer\n" + "2 - Main Course\n" + "3 - " +
-                        "Dessert\n" + "Enter the number for your selection: \n");
-                userInput = input.nextInt();
+                System.out.println("Menu\n" +
+                        "0 - Nothing\n" +
+                        "1 - Appetizer\n" +
+                        "2 - Main Course\n" +
+                        "3 - Dessert\n" + "" +
+                        "Enter the number for your selection: \n");
+                menuSelection = input.nextInt();
 
-                    switch (userInput) {
-                        case 0:
-                            break;
+                switch (menuSelection) {
+                    case 1 -> {
+                        appetizerList.addAll(appetizer(input));
 
-                        case 1:
-                            Appetizer(input);
-                            break;
-                        case 2:
-                            MainCourse();
-                            break;
-                        case 3:
-                            Dessert();
-                            break;
+
                     }
+                    case 2 -> MainCourse();
+                    case 3 -> Dessert();
+                    default -> {
+                    }
+                }
 
-            } while (userInput != 0);
-        }
-    }public static void main (String[] args){
-        String name = PlaceOrder();
+
+                } while (menuSelection != 0);
+
             System.out.printf("Select from menu, %s:", name);
-           Mainmenu();
             System.out.println(" ****Mike's Burgers****    ");
             System.out.println("Thank you for stopping by " + name);
             System.out.println("       Receipt   ");
-            if(AppetizerList.size()>0) {
+
+            if(appetizerList.size()>0) {
                 System.out.println("Appetizer:");
-                System.out.println(AppetizerList);
+                System.out.println(appetizerList);
                 if (AppToppings.size() > 0) {
                     System.out.println(AppToppings);
-                }if(AppToppings.size() > AppetizerList.size()){
+                }if(AppToppings.size() > appetizerList.size()){
                     System.out.println("Additional $0.95 per extra Appetizer Topping");
-                    for (int i = AppetizerList.size(); i < AppToppings.size(); i++) {
+                    for (int i = appetizerList.size(); i < AppToppings.size(); i++) {
                         Cost += 0.95;
                     }
                 }
-            }else if ((AppToppings.size() > 0) && (AppetizerList.size() == 0)) {
+            }else if ((AppToppings.size() > 0) && (appetizerList.size() == 0)) {
                 System.out.println("No Appetizer only take out toppings");
                 for (int i = 0; i < AppToppings.size(); i++) {
                     System.out.println(AppToppings.toArray()[i]);
